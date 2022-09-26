@@ -1,0 +1,26 @@
+[
+    {
+        "id" : "1",
+        "heading" : "CREAT YOUR ACCOUNT",
+        "imgpath" : "https://quicentro.registragana.com/public/img/upload_files/a104d371-bcf5-45a5-bc78-1dc3ebb8901c1604384403.png",
+        "data" : "ENTER A USERNAME AND PASSWORD"
+    },
+    {
+        "id" : "2",
+        "heading" : "ENTER INFORMATION",
+        "imgpath" : "https://quicentro.registragana.com/public/img/upload_files/d70267d8-0a18-4ca8-bfc7-3332dee700731604384403.png",
+        "data" : "FILL IN THE FORM WITH THE REQUESTED DATA AND UPLOAD YOUR INVOICES"
+    },
+    {
+        "id" : "3",
+        "heading" : "VALIDATION PROCESS",
+        "imgpath" : "https://quicentro.registragana.com/public/img/upload_files/e492c338-8763-46cd-98ad-41615a7e07d11604384403.png",
+        "data" : "ALL INVOICES ENTERED ARE VALIDATED BY OUR TEAM"
+    },
+    {
+        "id" : "4",
+        "heading" : "YOU ARE PARTICIPATING!",
+        "imgpath" : "https://quicentro.registragana.com/public/img/upload_files/f3659e46-d27a-4901-97a5-765801c9489b1604398804.png",
+        "data" : "ONCE APPROVED, YOUR VIRTUAL COUPONS ARE ASSIGNED."
+    }
+]

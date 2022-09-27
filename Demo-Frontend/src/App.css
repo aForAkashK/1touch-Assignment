@@ -188,7 +188,7 @@
 
 .login-fields{
   margin-left:  50px;
-  margin-top: 50px;
+  margin-top: 30px;
   width: 70vw;
 }
 
@@ -222,9 +222,9 @@
   cursor: pointer;
 }
 
-.login-fields p{
+/* .login-fields p{
   margin-top: 20px;
-}
+} */
 
 
 
@@ -260,4 +260,11 @@
 
 .errorMessage{
   color: red;
+}
+
+
+.profile-heading{
+  text-align: center;
+  font-size: 40px;
+  
 }

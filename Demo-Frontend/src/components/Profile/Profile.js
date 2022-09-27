@@ -1,18 +1,41 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 function Profile() {
+
+    const [data, setData] = useState([])
+    console.log("data: ", data)
+    useEffect(() => {
+        const token = localStorage.getItem("gg")
+        const config = {
+            headers: {
+                "auth-token": token
+            }
+        };
+        axios.get("http://localhost:9098/api/auth/getuserdetails", config)
+            .then(res => {
+                if (res.status === 200) {
+                    setData(res.data.data)
+                }
+            })
+            .catch(err => console.log(err))
+
+
+    }, [])
+
     return (
         <React.Fragment>
+            <div className='profile-heading'>
+                <p>Welcome {data.name}  </p>
+            </div>
             <div className='profile-wrapper'>
                 <div className='profile-pic'>
                     <img src='https://eform.etixdubai.com/App_Themes/DefaultNew/images/profile.png' alt='profile' />
                 </div>
                 <div className='profile-details'>
                     <div details>
-                        <p>Name : lorem epsum</p>
-                        <p>Email : lorem epsum</p>
-                        <p>Dummy : lorem epsum</p>
-                        <p>Dumyy : lorem epsum</p>
+                        <p>Name : {data.name}</p>
+                        <p>Email : {data.email}</p>
                     </div>
 
                 </div>

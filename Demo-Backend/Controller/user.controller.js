@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
                         var token = jwt.sign(payload, process.env.SECRET_KEY);
                         res.status(200).json({ Success: true, message: "Signin Success", token })
                     } else {
-                        res.status(200).json({ Success: true, message: "Invalid Credentials" })
+                        res.status(400).json({ Success: true, message: "Invalid Credentials" })
                     }
                 }
             } else {

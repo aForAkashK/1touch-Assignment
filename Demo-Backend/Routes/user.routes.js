@@ -11,7 +11,7 @@ const router = express.Router();
 router.post('/register', userController.registerUser)
 router.post('/login', userController.login)
 
-router.post('/getuserdetails', fetchUser, async (req, res) => {
+router.get('/getuserdetails', fetchUser, async (req, res) => {
     // console.log(req.user)
     try {
         const userId = req.user;

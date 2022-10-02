@@ -12,7 +12,6 @@ const fetchUser = (req, res, next) => {
     }
     try {
         const data = jwt.verify(token, process.env.SECRET_KEY)
-        console.log("data: ", data)
         req.user = data.subject
         next()
     } catch (error) {

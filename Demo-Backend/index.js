@@ -1,25 +1,32 @@
 const express = require('express')
-const mongodb = require('./services/mongo.services')
-var dotenv = require('dotenv')
+var dotenv = require('dotenv').config()
 const UserRouter = require('./Routes/user.routes')
 
 var cors = require('cors')
+const  mongoose  = require('mongoose')
 
 const app = express()
 
+app.use(express.static("uploads/"))
 app.use(cors())
-dotenv.config()
 
 // middleware
-app.use(express.json())                                                                                                                                                                                                                                                                                                                                                                                     
+app.use(express.json())
 
 // Routers
-app.use('/api/auth',UserRouter)
+app.use('/api/auth', UserRouter)
 
-console.log("process.env.MONGO_URL",process.env.MONGO_URL)
+// console.log("process.env.MONGO_URL", process.env.MONGO_URL)
 
-mongodb.connectDb(process.env.MONGO_URL)
 
-app.listen(process.env.PORT, function() {
+mongoose.connect(process.env.MONGO_URL, (err, res) => {
+    if(err) {
+        console.log(err);
+    }else{
+        console.log("DB is connected....");
+    }
+});
+
+app.listen(process.env.PORT, function () {
     console.log(`server is running at ${process.env.PORT}`)
 })

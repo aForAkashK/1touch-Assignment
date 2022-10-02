@@ -25,7 +25,7 @@ const userCtrl = {
                 // const body = JSON.parse(req.body)
                 const user = await userService.create(req.body);
                 var payload = { subject: user._id }
-                var token = jwt.sign(payload, process.env.SECRET_KEY);
+                var token = jwt.sign(payload, process.env.SECRET_KEY, {expiresIn:"1h"});
                 res.status(200)
                 res.json({ error: false, message: "Successfully Registered", token })
             }
@@ -86,8 +86,8 @@ const userCtrl = {
         if (!token) {
             res.status(401).send({ Success: false, message: 'Action Denied..!!!'})
         } else {
-            res.clearCookie("token")
-            res.status(401).send({ Success: true, message: 'Logout Success' })
+            // we can can not destroy the JWT token 
+            res.status(401).send({ Success: true, message: 'Token is available' })
         }
     }
 }

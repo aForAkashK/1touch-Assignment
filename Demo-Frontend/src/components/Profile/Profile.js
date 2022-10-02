@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 function Profile() {
 
     const [data, setData] = useState([])
+    console.log("data", data)
     console.log("data: ", data)
     useEffect(() => {
         const token = localStorage.getItem("gg")
@@ -30,7 +31,7 @@ function Profile() {
             </div>
             <div className='profile-wrapper'>
                 <div className='profile-pic'>
-                    <img src='https://eform.etixdubai.com/App_Themes/DefaultNew/images/profile.png' alt='profile' />
+                    <img src={data.imgSrc ? data.imgSrc : "https://eform.etixdubai.com/App_Themes/DefaultNew/images/profile.png"} alt='profile' />
                 </div>
                 <div className='profile-details'>
                     <div details>

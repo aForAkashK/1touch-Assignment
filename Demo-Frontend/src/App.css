@@ -268,3 +268,17 @@
   font-size: 40px;
   
 }
+
+
+input::file-selector-button{
+  color:rgb(251, 251, 252);
+  font-size:17px;
+  height: 50px;
+  background-color: var(--brand-Color);
+  border: none;
+  padding: 10px;
+}
+
+.login-fields .browse input{
+  padding: 0px;
+}

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+
 const dontenv = require('dotenv')
 dontenv.config()
 
@@ -6,7 +7,6 @@ dontenv.config()
 
 const fetchUser = (req, res, next) => {
     const token = req.header('auth-token')
-    console.log(token)
     if (!token) {
         res.status(401).send({ Success: false, message: 'Action Denied..!!!' })
     }

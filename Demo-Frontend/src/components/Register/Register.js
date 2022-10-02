@@ -12,6 +12,7 @@ function Register() {
         email: "",
         password: ""
     })
+    const [file, setFile] = useState("")
 
     // console.log("userDetails", userDetails)
     const [errorName, setErrorName] = useState(false)
@@ -21,11 +22,14 @@ function Register() {
     const [registerError, setRegisterError] = useState(false)
     const [emailErrorMsg, setEmailErrorMsg] = useState("")
     const [registerErrorMessage, setRegisterErrorMessage] = useState("")
+    const [errorProfile, setErrorProfile] = useState("")
 
 
     const onChangeField = (e) => {
-        setuserDetails({ ...userDetails, [e.target.name]: e.target.value })
-        if (e.target.name === "name" && e.target.value !== "") {
+        if (e.target.name !== "upload") {
+            setuserDetails({ ...userDetails, [e.target.name]: e.target.value })
+        }
+        else if (e.target.name === "name" && e.target.value !== "") {
             setErrorName(false)
         }
         else if (e.target.name === "email" && e.target.value !== "") {
@@ -35,15 +39,27 @@ function Register() {
         else if (e.target.name === "password" && e.target.value !== "") {
             setErrorPassword(false)
         }
+        else if (e.target.name === "upload" && e.target.value !== "") {
+            setErrorProfile(false)
+        }
+        else {
+            setFile(e.target.files[0])
+        }
     }
 
-    const registerUser = async (userDetails) => {
+    const registerUser = async (userDetails, file) => {
         const { name, email, password } = userDetails;
+        const img = file.name
+        console.log("img:", img)
 
 
-        await axios.post('http://localhost:9098/api/auth/register', {
-            name, email, password
-        })
+
+        var formdata = new FormData();
+        formdata.append("img", file, file.name);
+        formdata.append("name", name);
+        formdata.append("email", email);
+        formdata.append("password", password);
+        await axios.post('http://localhost:9098/api/auth/register', formdata)
             .then(function (response) {
                 if (response.status === 200) {
                     setRegisterSuccess(true)
@@ -89,9 +105,12 @@ function Register() {
         else if (userDetails.password === "") {
             setErrorPassword(true)
         }
+        else if (file === "") {
+            setErrorProfile(true)
+        }
         else {
-            if (emailRegx.test(userDetails.email)) {
-                registerUser(userDetails)
+            if (emailRegx.test(userDetails.email && file)) {
+                registerUser(userDetails, file)
                 setErrorName(false)
                 setErrorEmail(false)
                 setEmailErrorMsg("")
@@ -127,6 +146,10 @@ function Register() {
                         <br />
                         <input type={"password"} placeholder='Password' name='password' value={userDetails.password} onChange={(e) => onChangeField(e)} />
                         {errorPassword && <p className='errorMessage'>{"Password is required"}</p>}
+                        <div className='browse'>
+                            <input type={"file"} placeholder="Select your profile" name='upload' onChange={(e) => onChangeField(e)} />
+                            {errorProfile && <p className='errorMessage'>{"Profile is required"}</p>}
+                        </div>
                         <p>I forgot my password</p>
                         {registerSuccess && <p className='successMessage'>Register Success</p>}
                         {registerError && <p className='errorMessage'>{registerErrorMessage}</p>}

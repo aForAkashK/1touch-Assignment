@@ -14,7 +14,6 @@ function Register() {
     })
     const [file, setFile] = useState("")
 
-    // console.log("userDetails", userDetails)
     const [errorName, setErrorName] = useState(false)
     const [errorEmail, setErrorEmail] = useState(false)
     const [errorPassword, setErrorPassword] = useState(false)
@@ -26,10 +25,12 @@ function Register() {
 
 
     const onChangeField = (e) => {
-        if (e.target.name !== "upload") {
-            setuserDetails({ ...userDetails, [e.target.name]: e.target.value })
+        setuserDetails({ ...userDetails, [e.target.name]: e.target.value })
+        if (e.target.name === "upload" && e.target.value !== "") {
+            setErrorProfile(false)
+            setFile(e.target.files[0])
         }
-        else if (e.target.name === "name" && e.target.value !== "") {
+        if (e.target.name === "name" && e.target.value !== "") {
             setErrorName(false)
         }
         else if (e.target.name === "email" && e.target.value !== "") {
@@ -39,20 +40,10 @@ function Register() {
         else if (e.target.name === "password" && e.target.value !== "") {
             setErrorPassword(false)
         }
-        else if (e.target.name === "upload" && e.target.value !== "") {
-            setErrorProfile(false)
-        }
-        else {
-            setFile(e.target.files[0])
-        }
     }
 
     const registerUser = async (userDetails, file) => {
         const { name, email, password } = userDetails;
-        const img = file.name
-        console.log("img:", img)
-
-
 
         var formdata = new FormData();
         formdata.append("img", file, file.name);
@@ -89,10 +80,11 @@ function Register() {
     }
 
     const handleSubmit = () => {
-        if (userDetails.name === "" || userDetails.email === "" || userDetails.password === "") {
+        if (userDetails.name === "" || userDetails.email === "" || userDetails.password === "" || file === "") {
             setErrorName(true)
             setErrorEmail(true)
             setErrorPassword(true)
+            setErrorProfile(true)
             setEmailErrorMsg("Email is required")
         }
         else if (userDetails.name === "") {
@@ -109,7 +101,7 @@ function Register() {
             setErrorProfile(true)
         }
         else {
-            if (emailRegx.test(userDetails.email && file)) {
+            if (emailRegx.test(userDetails.email)) {
                 registerUser(userDetails, file)
                 setErrorName(false)
                 setErrorEmail(false)
